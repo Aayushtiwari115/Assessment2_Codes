@@ -1,69 +1,79 @@
-
 from pathlib import Path
 from typing import Tuple
 
+# ------------------------- Global Constants ----------------------------------
+
+# Define alphabets and partitions for classification
 ALPHA_LOWER = "abcdefghijklmnopqrstuvwxyz"
 ALPHA_UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+# Partition lowercase alphabet into two halves
 LOWER_FIRST = set(ALPHA_LOWER[:13])   # a–m
 LOWER_SECOND = set(ALPHA_LOWER[13:])  # n–z
+
+# Partition uppercase alphabet into two halves
 UPPER_FIRST = set(ALPHA_UPPER[:13])   # A–M
 UPPER_SECOND = set(ALPHA_UPPER[13:])  # N–Z
 
 
-# ----------------------------- core helpers ----------------------------------
+# ----------------------------- Core Helpers ----------------------------------
 
 def _shift_char(ch: str, k: int, alphabet: str) -> str:
     """
-    Cyclic shift of a single character 'ch' by k within 'alphabet' (size 26).
-    Non-members are returned unchanged.
+    Perform a cyclic shift of a single character 'ch' within a given 'alphabet'.
+    The shift magnitude is k (can be positive or negative).
+    Characters not in the alphabet remain unchanged.
     """
     if ch not in alphabet:
         return ch
-    idx = alphabet.index(ch)
-    return alphabet[(idx + k) % 26]
+    idx = alphabet.index(ch)  # current index
+    return alphabet[(idx + k) % 26]  # apply shift with wraparound
 
 
 def encrypt_with_meta(text: str, shift1: int, shift2: int) -> Tuple[str, str]:
     """
-    Apply the assignment's encryption rules to 'text' and return:
-      (cipher_text, metadata_string)
-    Metadata encodes which rule was applied, char-by-char:
+    Encrypt text using the assignment’s rules. Returns:
+        (cipher_text, metadata_string)
 
+    Rules based on character class:
         '0' = non-letter (unchanged)
-        '1' = lowercase a–m  : + (shift1 * shift2)
-        '2' = lowercase n–z  : - (shift1 + shift2)
-        '3' = uppercase A–M  : - shift1
-        '4' = uppercase N–Z  : + (shift2 ** 2)
+        '1' = lowercase a–m  → shifted by +(shift1 * shift2)
+        '2' = lowercase n–z  → shifted by -(shift1 + shift2)
+        '3' = uppercase A–M  → shifted by -shift1
+        '4' = uppercase N–Z  → shifted by +(shift2 ** 2)
+
+    Metadata ensures that decryption can reverse each transformation.
     """
     k1 = shift1 * shift2
     k2 = shift1 + shift2
     kU2 = shift2 ** 2
 
-    out_chars = []
-    meta_chars = []
+    out_chars = []   # encrypted characters
+    meta_chars = []  # metadata (tracking which rule applied)
 
     for ch in text:
         if ch.islower():
-            if ch in LOWER_FIRST:
+            if ch in LOWER_FIRST:  # lowercase a–m
                 out_chars.append(_shift_char(ch, k1, ALPHA_LOWER))
                 meta_chars.append('1')
-            elif ch in LOWER_SECOND:
+            elif ch in LOWER_SECOND:  # lowercase n–z
                 out_chars.append(_shift_char(ch, -k2, ALPHA_LOWER))
                 meta_chars.append('2')
             else:
-                out_chars.append(ch)
+                out_chars.append(ch)  # non-standard char (unchanged)
                 meta_chars.append('0')
         elif ch.isupper():
-            if ch in UPPER_FIRST:
+            if ch in UPPER_FIRST:  # uppercase A–M
                 out_chars.append(_shift_char(ch, -shift1, ALPHA_UPPER))
                 meta_chars.append('3')
-            elif ch in UPPER_SECOND:
+            elif ch in UPPER_SECOND:  # uppercase N–Z
                 out_chars.append(_shift_char(ch, kU2, ALPHA_UPPER))
                 meta_chars.append('4')
             else:
                 out_chars.append(ch)
                 meta_chars.append('0')
         else:
+            # Non-alphabetic characters (digits, punctuation, whitespace)
             out_chars.append(ch)
             meta_chars.append('0')
 
@@ -72,7 +82,8 @@ def encrypt_with_meta(text: str, shift1: int, shift2: int) -> Tuple[str, str]:
 
 def decrypt_with_meta(cipher: str, meta: str, shift1: int, shift2: int) -> str:
     """
-    Invert the encryption using the metadata to decide which inverse to apply.
+    Decrypt text using metadata to apply exact inverse operations.
+    Ensures full reversibility regardless of shift parameters.
     """
     if len(cipher) != len(meta):
         raise ValueError("Metadata length does not match ciphertext length.")
@@ -83,18 +94,18 @@ def decrypt_with_meta(cipher: str, meta: str, shift1: int, shift2: int) -> str:
 
     out_chars = []
     for ch, m in zip(cipher, meta):
-        if m == '0':       # unchanged
+        if m == '0':       # Non-letter (unchanged)
             out_chars.append(ch)
-        elif m == '1':     # a–m used +k1 → inverse -k1
+        elif m == '1':     # inverse of +(shift1 * shift2)
             out_chars.append(_shift_char(ch, -k1, ALPHA_LOWER))
-        elif m == '2':     # n–z used -k2 → inverse +k2
+        elif m == '2':     # inverse of -(shift1 + shift2)
             out_chars.append(_shift_char(ch, +k2, ALPHA_LOWER))
-        elif m == '3':     # A–M used -shift1 → inverse +shift1
+        elif m == '3':     # inverse of -shift1
             out_chars.append(_shift_char(ch, +shift1, ALPHA_UPPER))
-        elif m == '4':     # N–Z used +shift2^2 → inverse -shift2^2
+        elif m == '4':     # inverse of +(shift2 ** 2)
             out_chars.append(_shift_char(ch, -kU2, ALPHA_UPPER))
         else:
-            # Unexpected code – fail safe: leave as-is
+            # Unexpected metadata symbol – safeguard fallback
             out_chars.append(ch)
 
     return "".join(out_chars)
@@ -102,7 +113,9 @@ def decrypt_with_meta(cipher: str, meta: str, shift1: int, shift2: int) -> str:
 
 def verify_files(a: Path, b: Path):
     """
-    Byte-wise equality check. Returns (is_equal: bool, first_diff_index or None).
+    Compare two files byte-by-byte.
+    Returns (True, None) if identical,
+    else (False, index_of_first_difference).
     """
     A = a.read_text(encoding="utf-8")
     B = b.read_text(encoding="utf-8")
@@ -115,6 +128,10 @@ def verify_files(a: Path, b: Path):
 
 
 def _prompt_int(msg: str) -> int:
+    """
+    Prompt the user until a valid integer is entered.
+    Provides robustness against invalid inputs.
+    """
     while True:
         try:
             return int(input(msg).strip())
@@ -122,22 +139,26 @@ def _prompt_int(msg: str) -> int:
             print("Please enter an integer.")
 
 
-# main 
+# ----------------------------- Main Program ----------------------------------
 
 def main() -> None:
     print("=== HIT137 Q1: Encrypt → Decrypt → Verify (lossless with metadata) ===")
-    base = Path(__file__).parent
-    raw_path = base / "raw_text.txt"
-    enc_path = base / "encrypted_text.txt"
-    meta_path = base / "encrypted_text.meta"
-    dec_path = base / "decrypted_text.txt"
 
+    # Define file paths relative to current script
+    base = Path(__file__).parent
+    raw_path = base / "raw_text.txt"        # original input text
+    enc_path = base / "encrypted_text.txt"  # encrypted text output
+    meta_path = base / "encrypted_text.meta" # metadata output
+    dec_path = base / "decrypted_text.txt"  # decrypted text output
+
+    # Ensure raw input file exists before proceeding
     if not raw_path.exists():
         raise FileNotFoundError(
             f"Input file not found: {raw_path.resolve()}.\n"
             "Please create 'raw_text.txt' in the same folder."
         )
 
+    # User input: shift parameters
     shift1 = _prompt_int("Enter shift1 (integer): ")
     shift2 = _prompt_int("Enter shift2 (integer): ")
 
@@ -162,5 +183,6 @@ def main() -> None:
         print("[WARNING] Files differ! First difference at index:", idx)
 
 
+# Entry point
 if __name__ == "__main__":
     main()
