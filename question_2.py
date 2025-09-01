@@ -1,4 +1,6 @@
-#question_2_Solution
+#question_2_Solution 
+
+# ------------------------- Imports ----------------------------------
 import pandas as pd
 import glob
 import os
