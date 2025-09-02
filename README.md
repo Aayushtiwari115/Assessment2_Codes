@@ -12,10 +12,10 @@ This repository contains solutions for three programming tasks (Question 1, Ques
   - Question 1 — Text Encryption / Decryption
   - Question 2 — Seasonal Temperature Analysis
   - Question 3 — Recursive Polygon Fractal
+
 - Outputs
 - Notes
 - Contributing
-- License
 - Contact
 
 ## Project overview
@@ -137,8 +137,20 @@ Behavior & prompts:
 ## Outputs (summary)
 
 - encrypted_text.txt, encrypted_text.meta, decrypted_text.txt (Question 1)
+  
+  <img width="1130" height="101" alt="Screenshot 2025-09-02 at 2 40 41 pm" src="https://github.com/user-attachments/assets/aa5e00ea-f0fb-4d42-aa45-9c475a9494d7" />
+  
 - average_temp.txt, largest_temp_range_station.txt, temperature_stability_stations.txt (Question 2)
+  <img width="1130" height="31" alt="Screenshot 2025-09-02 at 2 41 31 pm" src="https://github.com/user-attachments/assets/92fcf5c2-bf98-4138-b395-f01fe5003027" />
+<img width="1141" height="150" alt="Screenshot 2025-09-02 at 2 42 31 pm" src="https://github.com/user-attachments/assets/60995221-cf3e-4508-ad67-0cafc8dc24e7" />
+<img width="1141" height="150" alt="Screenshot 2025-09-02 at 2 42 52 pm" src="https://github.com/user-attachments/assets/6bdc0b10-1dc5-4463-8c24-1893456c0ea2" />
+<img width="1141" height="150" alt="Screenshot 2025-09-02 at 2 43 05 pm" src="https://github.com/user-attachments/assets/9dfa9789-2c61-4def-a9fc-47ef53424beb" />
+
 - A live Turtle window and optional saved screenshot (Question 3)
+<img width="1141" height="102" alt="Screenshot 2025-09-02 at 2 41 49 pm" src="https://github.com/user-attachments/assets/a1ffd992-cadf-4ce3-a0f3-9ff7d6bd2257" />
+`
+<img width="395" height="349" alt="Screenshot 2025-09-02 at 2 29 34 pm" src="https://github.com/user-attachments/assets/643290dc-6c62-431e-8ace-91ba2a5a5abf" />
+
 
 ## Notes and troubleshooting
 
@@ -152,9 +164,6 @@ Behavior & prompts:
 - If you improve code or documentation, please open a pull request with a clear description of changes.
 - Add unit tests for computational functions where appropriate and update this README to reflect changes in usage.
 
-## License
-
-- No license file is included in this repository. Add a LICENSE file (for example, MIT or Apache-2.0) and update this section accordingly.
 
 ## Contact
 
