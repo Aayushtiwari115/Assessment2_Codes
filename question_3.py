@@ -1,8 +1,44 @@
-#question_3_Solution
+# question_3_Solution
+# ---------------------------------------------------------------------
+# Recursive Polygon Fractal with Triangle Indentation (Koch-like edge)
+# ---------------------------------------------------------------------
+# This script draws a geometric pattern that starts from a regular polygon
+# and recursively modifies each edge by replacing its middle third with
+# two sides of an inward-pointing equilateral triangle.
+#
+# Pattern Rules (per edge, per recursion step):
+#   1) Divide the edge into three equal segments.
+#   2) Replace the middle segment with two sides of an equilateral triangle
+#      pointing inward (indentation).
+#   3) One edge becomes four shorter edges, each 1/3 the original length.
+#   4) Apply recursively to each of the four new edges up to the chosen depth.
+#
+# User Inputs:
+#   - Number of sides (≥ 3) for the starting polygon.
+#   - Side length (pixels).
+#   - Recursion depth (≥ 0).
+#
+# Visual Intuition:
+#   - Depth 0: straight line.
+#   - Depth 1: ——\⁄—— (one indentation).
+#   - Depth 2+: each new segment gets its own indentation, growing in detail.
+#
+# Reproducibility & Transparency:
+#   - Pure, single-responsibility functions for edge drawing and polygon assembly.
+#   - No in-place mutation of inputs beyond turtle drawing state.
+#   - Console prompts for parameters; deterministic rendering given inputs.
+#
+# Dependencies: turtle (Screen, Turtle), math (cos/sin/radians), typing (Tuple)
+# ---------------------------------------------------------------------
+
+
+# ------------------------- Imports & Typing ---------------------------
 from turtle import Screen, Turtle
 from math import cos, sin, radians
 from typing import Tuple
 
+
+# ------------------------- Analytics: Edge Rule -----------------------
 # Draw one edge of the polygon recursively using the Koch-like triangle rule
 def draw_edge(t: Turtle, length: float, depth: int) -> None:
     if depth == 0:
@@ -27,6 +63,8 @@ def draw_edge(t: Turtle, length: float, depth: int) -> None:
             # Turn right by specified angle
             t.right(val)
 
+
+# ------------------------- Orchestration: Polygon ---------------------
 # Draw the full polygon by connecting multiple recursive edges
 def draw_polygon_fractal(t: Turtle, sides: int, side_length: float, depth: int) -> None:
     if sides < 3:
@@ -36,6 +74,8 @@ def draw_polygon_fractal(t: Turtle, sides: int, side_length: float, depth: int) 
         draw_edge(t, side_length, depth)  # Draw one recursive edge
         t.left(exterior_angle)            # Turn to next edge
 
+
+# ------------------------- Layout: Centering Sim ----------------------
 # Simulate the turtle's path to estimate bounding box for centering
 def simulate_path_bbox(sides: int, side_length: float, depth: int) -> Tuple[float, float, float, float]:
     x = y = heading = 0.0
@@ -80,6 +120,8 @@ def simulate_path_bbox(sides: int, side_length: float, depth: int) -> Tuple[floa
 
     return min_x, min_y, max_x, max_y  # Return bounding box
 
+
+# ------------------------- I/O: Safe Prompts --------------------------
 # Helper function to safely ask for integer input
 def ask_int(prompt: str, min_value: int = 1) -> int:
     while True:
@@ -104,6 +146,8 @@ def ask_float(prompt: str, min_value: float = 0.1) -> float:
         except ValueError:
             print("Enter a valid number.")
 
+
+# ------------------------- Orchestration: Main ------------------------
 # Main execution function
 def main() -> None:
     print("=== Recursive Polygon with Triangle Indentation ===")
