@@ -48,6 +48,7 @@ The script reads `raw_text.txt`, writes `encrypted_text.txt`, decrypts to `decry
   - A–M → backward by `shift1`
   - N–Z → forward by `shift2 ** 2`
 - Non-letters unchanged.
+<img width="1006" height="135" alt="Screenshot 2025-09-02 at 2 27 24 pm" src="https://github.com/user-attachments/assets/dda77f3a-ad26-4a45-b096-24c98c584547" />
 
 ---
 
@@ -69,6 +70,8 @@ python question_2_Solution.py
 > Missing values are ignored automatically.
 
 ---
+<img width="1006" height="45" alt="Screenshot 2025-09-02 at 2 27 56 pm" src="https://github.com/user-attachments/assets/9b170f5e-26e8-4f67-a2a8-906c81506cdd" />
+
 
 ## 🧩 Question 3 — Recursive Polygon Fractal
 
@@ -81,6 +84,9 @@ python question_3_Solution.py
 A Turtle window opens; close it to exit. Depth > 6 can be slow.
 
 ---
+
+<img width="1006" height="128" alt="Screenshot 2025-09-02 at 2 28 43 pm" src="https://github.com/user-attachments/assets/43f605a4-7706-41fc-86f8-425640365233" />
+
 
 ## 🔧 Environment & Setup
 
