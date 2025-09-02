@@ -35,8 +35,8 @@ This repository contains solutions for three programming tasks (Question 1, Ques
 - decrypted_text.txt    — Example decrypted output (generated).
 - README.md             — Original high-level README for the assignment.
 - read.md               — This file (project-specific README).
-- temperatures/         — (expected) folder containing CSV files for Question 2 (if present).
-- q3_output.png         — (example) screenshot of Question 3 output (if present).
+- temperatures/         — (expected) folder containing CSV files for Question 2.
+- q3_output.png         — (example) screenshot of Question 3 output.
 
 Adjust the list above if you add or move files.
 
