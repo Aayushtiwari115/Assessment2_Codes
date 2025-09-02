@@ -1,105 +1,81 @@
-# HIT137 — Group Assignment 2 (20%)
+# HIT137 – Group Assignment 2 (20%)
 
-This repository contains completed solutions for all three questions in *Assignment 2*.
-
----
-
-## 📦 Contents
-
-ASSESSMENT2_CODES/
-│
-├── temperatures/ # Folder for Q2 CSV input files
-│
-├── question_1.py # Q1: Encryption/Decryption program
-├── question_2.py # Q2: Temperature analysis program
-├── question_3.py # Q3: Recursive polygon fractal (Turtle)
-│
-├── raw_text.txt # Input for Q1
-├── encrypted_text.txt # Output (encrypted text)
-├── decrypted_text.txt # Output (decrypted text)
-│
-├── average_temp.txt # Q2 output: seasonal averages
-├── largest_temp_range_station.txt # Q2 output: station(s) with largest range
-├── temperature_stability_stations.txt # Q2 output: most stable/variable stations
-│
-├── q3_output.png # Screenshot/sample output for Q3
-├── github_link.txt # Public GitHub repo link (edit this)
-└── README.md # Documentation (this file)
-- Outputs created at runtime:
-  - `encrypted_text.txt`, `decrypted_text.txt` (Q1)
-  - `average_temp.txt`, `largest_temp_range_station.txt`, `temperature_stability_stations.txt` (Q2)
+This repository contains solutions for **three programming tasks** in Assignment 2.  
+Each solution is implemented in Python and demonstrates different programming skills:  
+**file handling, data analysis, recursion, and graphics programming.**
 
 ---
 
-## ✅ Question 1 — Encryption / Decryption / Verification
+## Question 1 – Text Encryption and Decryption
+
+### Objective
+Create a program that encrypts and decrypts text from a file using a simple custom shifting method, then verifies the result.
+
+### Features
+- Reads text from `raw_text.txt`.
+- Prompts the user for two integers: `shift1` and `shift2`.
+- Encryption rules:
+  - **Lowercase letters (a–m):** shift forward by `shift1 * shift2`.
+  - **Lowercase letters (n–z):** shift backward by `shift1 + shift2`.
+  - **Uppercase letters (A–M):** shift backward by `shift1`.
+  - **Uppercase letters (N–Z):** shift forward by `shift2²`.
+  - **Other characters:** unchanged.
+- Writes result to `encrypted_text.txt`.
+- Decrypts back to `decrypted_text.txt`.
+- Compares decrypted text with the original file.
 
 ### Run
 ```bash
-python question_1_Solution.py
-```
-You will be prompted for two integers: `shift1` and `shift2`.  
-The script reads `raw_text.txt`, writes `encrypted_text.txt`, decrypts to `decrypted_text.txt`, and prints whether the decrypted text matches the original.
-
-### Rules Recap
-- **Lowercase (a–z):**
-  - a–m → forward by `shift1 * shift2`
-  - n–z → backward by `shift1 + shift2`
-- **Uppercase (A–Z):**
-  - A–M → backward by `shift1`
-  - N–Z → forward by `shift2 ** 2`
-- Non-letters unchanged.
-<img width="1006" height="135" alt="Screenshot 2025-09-02 at 2 27 24 pm" src="https://github.com/user-attachments/assets/dda77f3a-ad26-4a45-b096-24c98c584547" />
-
----
-
-## 🌡️ Question 2 — Seasonal Temperature Analysis
-
-Process **all** `*.csv` files inside `temperatures/` (each one year, each row = station with columns `STATION_NAME`, `January` … `December`).
-
-### Outputs
-- `average_temp.txt` — mean temperature per season across **all stations and years**.
-- `largest_temp_range_station.txt` — station(s) with max (max−min) range.
-- `temperature_stability_stations.txt` — most stable / most variable station(s) by std dev.
-
-### Run
-```bash
-python question_2_Solution.py
-```
-
-> Seasons: Summer(Dec–Feb), Autumn(Mar–May), Winter(Jun–Aug), Spring(Sep–Nov).  
-> Missing values are ignored automatically.
-
----
-<img width="1006" height="45" alt="Screenshot 2025-09-02 at 2 27 56 pm" src="https://github.com/user-attachments/assets/9b170f5e-26e8-4f67-a2a8-906c81506cdd" />
-
-
-## 🧩 Question 3 — Recursive Polygon Fractal
-
-Prompts for polygon sides, side length, and recursion depth, then draws the Koch-like indentation pattern on each edge.
-
-### Run
-```bash
-python question_3_Solution.py
-```
-A Turtle window opens; close it to exit. Depth > 6 can be slow.
-
----
-
-<img width="1006" height="128" alt="Screenshot 2025-09-02 at 2 28 43 pm" src="https://github.com/user-attachments/assets/43f605a4-7706-41fc-86f8-425640365233" />
-<img width="395" height="349" alt="Screenshot 2025-09-02 at 2 29 34 pm" src="https://github.com/user-attachments/assets/2ed7d6d3-6548-432c-b0b5-fec54780a446" />
-
-
-## 🔧 Environment & Setup
-
-- Python 3.8+
-- Dependencies:
-  - `pandas` (Q2)
-  - Standard library: `turtle`, `math`, `glob`, `os`, `typing`
-
+python question_1.py
+Output
+encrypted_text.txt
+decrypted_text.txt
+Question 2 – Seasonal Temperature Analysis
+Objective
+Analyze Australian seasonal temperature data from multiple CSV files stored in a temperatures/ folder.
+Features
+Processes all .csv files inside temperatures/.
+Each file contains rows for STATION_NAME and columns January … December.
+Performs:
+Seasonal averages across all years/stations.
+Largest temperature range for a station (Max – Min).
+Most stable and most variable stations based on standard deviation.
+Ignores missing values (NaN).
+Seasons
+Summer: December – February
+Autumn: March – May
+Winter: June – August
+Spring: September – November
+Run
+python question_2.py
+Output
+average_temp.txt
+largest_temp_range_station.txt
+temperature_stability_stations.txt
+Question 3 – Recursive Polygon Fractal
+Objective
+Generate a recursive fractal pattern from a regular polygon using Turtle graphics.
+Features
+Asks user for:
+Number of polygon sides (≥ 3)
+Side length (pixels)
+Recursion depth
+Rule:
+Divide edge into 3 segments.
+Replace the middle segment with two sides of an equilateral triangle pointing inward.
+Repeat recursively for each new edge.
+Depth 0 → regular polygon.
+Depth 1+ → indentations per edge.
+Higher depths → intricate fractal patterns.
+Run
+python question_3.py
+Output
+A Turtle graphics window showing the fractal.
+Example screenshot: q3_output.png.
+Requirements
+Python 3.8+
+Libraries:
+pandas (for Question 2)
+Standard libraries: turtle, math, glob, os, typing
 Install pandas if needed:
-```bash
 pip install pandas
-```
-
----
-
