@@ -86,6 +86,7 @@ A Turtle window opens; close it to exit. Depth > 6 can be slow.
 ---
 
 <img width="1006" height="128" alt="Screenshot 2025-09-02 at 2 28 43 pm" src="https://github.com/user-attachments/assets/43f605a4-7706-41fc-86f8-425640365233" />
+<img width="395" height="349" alt="Screenshot 2025-09-02 at 2 29 34 pm" src="https://github.com/user-attachments/assets/2ed7d6d3-6548-432c-b0b5-fec54780a446" />
 
 
 ## 🔧 Environment & Setup
