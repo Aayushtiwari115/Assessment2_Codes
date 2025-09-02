@@ -2,19 +2,29 @@
 
 This repository contains completed solutions for all three questions in *Assignment 2*.
 
-> **Important:** Keep your GitHub repository **public** and add all group members before you begin.  
-> Include your repo URL in `github_link.txt`, zip the programming files and outputs, and upload the zip to Learnline per instructions.
-
 ---
 
 ## 📦 Contents
 
-- `question_1_Solution.py` — Text encryption/decryption with verification.
-- `question_2_Solution.py` — Seasonal temperature analysis over multiple CSVs.
-- `question_3_Solution.py` — Recursive polygon fractal using Turtle graphics.
-- `temperatures/` — Put all CSVs for Q2 here (one file per year).
-- `raw_text.txt` — Input for Q1 (replace with the provided file from assignment zip).
-- `github_link.txt` — **Edit this** to contain your public GitHub repository URL.
+ASSESSMENT2_CODES/
+│
+├── temperatures/ # Folder for Q2 CSV input files
+│
+├── question_1.py # Q1: Encryption/Decryption program
+├── question_2.py # Q2: Temperature analysis program
+├── question_3.py # Q3: Recursive polygon fractal (Turtle)
+│
+├── raw_text.txt # Input for Q1
+├── encrypted_text.txt # Output (encrypted text)
+├── decrypted_text.txt # Output (decrypted text)
+│
+├── average_temp.txt # Q2 output: seasonal averages
+├── largest_temp_range_station.txt # Q2 output: station(s) with largest range
+├── temperature_stability_stations.txt # Q2 output: most stable/variable stations
+│
+├── q3_output.png # Screenshot/sample output for Q3
+├── github_link.txt # Public GitHub repo link (edit this)
+└── README.md # Documentation (this file)
 - Outputs created at runtime:
   - `encrypted_text.txt`, `decrypted_text.txt` (Q1)
   - `average_temp.txt`, `largest_temp_range_station.txt`, `temperature_stability_stations.txt` (Q2)
@@ -86,12 +96,3 @@ pip install pandas
 
 ---
 
-## 🔗 GitHub & Submission
-
-1. Create a **public** GitHub repository.
-2. Add all group members with Write access.
-3. Commit/push all files from this folder.
-4. Put your repo URL in `github_link.txt` (one line).
-5. Zip the folder contents (including outputs) and upload to Learnline.
-
-Good luck! ✨
